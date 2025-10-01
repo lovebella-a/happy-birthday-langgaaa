@@ -10,7 +10,7 @@
       padding: 0;
       font-family: 'Segoe UI', sans-serif;
       text-align: center;
-      background: linear-gradient(135deg, #ffecd2, #fcb69f); /* keep your cute background */
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
       color: #333;
       overflow-x: hidden;
     }
@@ -50,6 +50,7 @@
       bottom: -10px;
       animation: floatUp linear infinite;
       opacity: 0.8;
+      z-index: 1;
     }
     @keyframes floatUp {
       0% { transform: translateY(0) rotate(0deg); opacity: 1; }
@@ -67,11 +68,11 @@
   <h1>Happy Birthday, My Love! 💖</h1>
   <p>
     Last night, I couldn't sleep because I kept thinking about what to get you for your birthday.  
-    I don't have money, and I'm too far away to give you something handmade... so I found another way! hehehhe  
-    This is my gift to you! I have no idea what I'm doing buuuut I know you'll love this hehe
+    I don't have money, and I'm too far away to give you something handmade... so I found another way! hehehhe 💕  
+    This is my gift to you! I have no idea what I'm doing buuuut I hope you'll love this hehe 🥰
   </p>
 
-  <a href="letter.html" class="button" onclick="playQuack(); confettiBlast();">ANO TOOOO💌</a>
+  <a href="letter.html" class="button" onclick="playQuack(); confettiBlast();">Read My Letter 💌</a>
 
   <!-- dancing dinosaur gif -->
   <div>
@@ -80,7 +81,7 @@
 
   <!-- floating emojis -->
   <script>
-    const emojis = ["🐈", "🎊", "🌻", "🌷", "🦖", "🍳", "🦆"];
+    const emojis = ["🐈🧡", "🐤", "🌻", "🌷", "🦖", "🍳"];
 
     function createFloaty() {
       const floaty = document.createElement("div");
@@ -109,20 +110,26 @@
   </script>
 
   <!-- sounds -->
-  <audio id="minion" autoplay>
+  <audio id="minion">
     <source src="https://www.myinstants.com/media/sounds/minions-happy-birthday.mp3" type="audio/mpeg">
   </audio>
   <audio id="quack">
     <source src="https://www.myinstants.com/media/sounds/quack.mp3" type="audio/mpeg">
   </audio>
+
   <script>
+    // play Minion song after first interaction (so browser allows it)
+    document.body.addEventListener("click", function playOnce() {
+      document.getElementById("minion").play();
+      document.body.removeEventListener("click", playOnce);
+    });
+
     function playQuack() {
-      document.getElementById("quack").play();
+      const q = document.getElementById("quack");
+      q.currentTime = 0;
+      q.play();
     }
   </script>
 
 </body>
 </html>
-
-
-
