@@ -8,61 +8,58 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #ffb6b9, #fcd5ce);
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f); /* keep your cute background */
+      color: #333;
       overflow-x: hidden;
     }
-
     h1 {
-      font-size: 2.8em;
-      color: white;
-      margin-top: 50px;
+      margin-top: 40px;
+      font-size: 3rem;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }
-
     p {
-      color: white;
-      max-width: 600px;
+      font-size: 1.2rem;
       margin: 20px auto;
-      font-size: 1.2em;
-      line-height: 1.5;
+      color: #fff;
+      max-width: 600px;
     }
-
-    button {
-      background: #ff4d6d;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.1em;
-      color: white;
-      border-radius: 25px;
-      cursor: pointer;
+    a.button {
+      display: inline-block;
       margin-top: 20px;
-      transition: transform 0.2s;
+      padding: 12px 25px;
+      font-size: 1.2rem;
+      background: #fff;
+      color: #ff6f61;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: 0.3s;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    }
+    a.button:hover {
+      background: #ff6f61;
+      color: #fff;
     }
 
-    button:hover {
-      transform: scale(1.1);
+    /* floating emojis */
+    .floaty {
+      position: fixed;
+      bottom: -10px;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
     }
-
-    .floating-emoji {
-      position: absolute;
-      font-size: 2rem;
-      animation: floatUp 10s linear infinite;
-      pointer-events: none;
-    }
-
     @keyframes floatUp {
-      from { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-      to { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-110vh) rotate(720deg); opacity: 0; }
     }
 
-    .dino-container {
-      margin-top: 30px;
-    }
-
-    .dino-container img {
-      width: 200px;
-      height: auto;
+    /* dancing dinosaur gif */
+    .dino {
+      margin: 40px auto;
+      max-width: 300px;
     }
   </style>
 </head>
@@ -70,60 +67,59 @@
   <h1>Happy Birthday, My Love! 💖</h1>
   <p>
     Last night, I couldn't sleep because I kept thinking about what to get you for your birthday.  
-    I don't have money, and I'm too far away to give you something handmade...  
-    so I found another way! hehehe  
-    <br><br>
-    This is my gift to you! I have no idea what I'm doing buuut I know you'll love this hehe
+    I don't have money, and I'm too far away to give you something handmade... so I found another way! hehehhe 💕  
+    This is my gift to you! I have no idea what I'm doing buuuut I hope you'll love this hehe 🥰
   </p>
 
-  <button onclick="triggerSurprise()">ANO TOOOO?! 💌</button>
+  <a href="letter.html" class="button" onclick="playQuack(); confettiBlast();">Read My Letter 💌</a>
 
-  <!-- Dancing Dinosaur GIF -->
-  <div class="dino-container">
-    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExM21pMGJ3ZTh6cHBja3lyMjV3bzZkcXU4dzh6dDdvMngyZmE1bmo5YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RLEdq1A9PT0BZo27s3/giphy.gif" 
-         alt="Dancing Dinosaur">
+  <!-- dancing dinosaur gif -->
+  <div>
+    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExM21pMGJ3ZTh6cHBja3lyMjV3bzZkcXU4dzh6dDdvMngyZmE1bmo5YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RLEdq1A9PT0BZo27s3/giphy.gif" alt="Dancing cat" class="dino">
   </div>
 
-  <!-- Floating Emojis -->
-  <div id="emoji-container"></div>
-
-  <!-- Sounds -->
-  <audio id="minion-song" src="https://www.myinstants.com/media/sounds/happy-birthday-minions.mp3"></audio>
-  <audio id="quack-sound" src="https://www.myinstants.com/media/sounds/quack.mp3"></audio>
-
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <!-- floating emojis -->
   <script>
-    // Play Minion song when page loads
-    window.onload = function() {
-      document.getElementById("minion-song").play();
-      spawnEmojis();
-    };
+    const emojis = ["🐈🧡", "🐤", "🌻", "🌷", "🦖", "🍳"];
 
-    // Trigger confetti + quack sound on button click
-    function triggerSurprise() {
-      var audio = document.getElementById("quack-sound");
-      audio.currentTime = 0;
-      audio.play();
+    function createFloaty() {
+      const floaty = document.createElement("div");
+      floaty.className = "floaty";
+      floaty.style.left = Math.random() * 100 + "vw";
+      floaty.style.fontSize = Math.random() * 20 + 20 + "px";
+      floaty.style.animationDuration = (Math.random() * 5 + 5) + "s";
+      floaty.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+      document.body.appendChild(floaty);
+      setTimeout(() => floaty.remove(), 10000);
+    }
 
+    setInterval(createFloaty, 700);
+  </script>
+
+  <!-- confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script>
+    function confettiBlast() {
       confetti({
-        particleCount: 200,
-        spread: 100,
+        particleCount: 150,
+        spread: 120,
         origin: { y: 0.6 }
       });
     }
+  </script>
 
-    // Floating emojis
-    const emojis = ["🐱","🐥","🌻","🌷","🦖","🍳"];
-    function spawnEmojis() {
-      for (let i = 0; i < 15; i++) {
-        let emoji = document.createElement("div");
-        emoji.className = "floating-emoji";
-        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        emoji.style.left = Math.random() * 100 + "vw";
-        emoji.style.animationDuration = (6 + Math.random() * 5) + "s";
-        document.getElementById("emoji-container").appendChild(emoji);
-      }
+  <!-- sounds -->
+  <audio id="minion" autoplay>
+    <source src="https://www.myinstants.com/media/sounds/minions-happy-birthday.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="quack">
+    <source src="https://www.myinstants.com/media/sounds/quack.mp3" type="audio/mpeg">
+  </audio>
+  <script>
+    function playQuack() {
+      document.getElementById("quack").play();
     }
   </script>
+
 </body>
 </html>
